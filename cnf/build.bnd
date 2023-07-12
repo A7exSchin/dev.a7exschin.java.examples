@@ -1,0 +1,24 @@
+-runfw:                 org.apache.felix.framework
+-runee:                 JavaSE-17
+
+Bundle-Developers: \
+    aschin; \
+        email=alex@a7schin.dev;\
+        name="Alexander Schindler";\
+        roles="architect,developer"
+
+# JUnit
+junit: \
+  junit-jupiter,\
+  junit-jupiter-api
+mockito: org.mockito.mockito-all
+
+# separate build folders for windows executions - file handle issues
+target-dir  generated${if;${driver;eclipse};;/${driver}}
+bin         ${target-dir}/classes
+testbin     ${target-dir}/test-classes
+
+-snapshot: ${tstamp}
+Bundle-Version: 1.0.3.SNAPSHOT
+
+Automatic-Module-Name: ${project.name}

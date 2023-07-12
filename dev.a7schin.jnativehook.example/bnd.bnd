@@ -1,0 +1,10 @@
+-buildpath: \
+    org.apache.commons.commons-io,\
+    com.github.kwhat:jnativehook;version='2.2.2',\
+    org.eclipse.osgi.services
+
+-includeresource: \
+    @${repo;com.github.kwhat:jnativehook;2.2.2}!/!(META-INF/*)
+Export-Package: \
+	jnativehook.example,\
+	jnativehook.example

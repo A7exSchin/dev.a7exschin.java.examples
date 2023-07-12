@@ -1,0 +1,4 @@
+# project-specific deps
+
+# jnativehook example
+com.github.kwhat:jnativehook:2.2.2
