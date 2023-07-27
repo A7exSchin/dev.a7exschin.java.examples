@@ -6,5 +6,4 @@
 -includeresource: \
     @${repo;com.github.kwhat:jnativehook;2.2.2}!/!(META-INF/*)
 Export-Package: \
-	jnativehook.example,\
 	jnativehook.example

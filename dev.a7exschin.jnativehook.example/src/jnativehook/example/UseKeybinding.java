@@ -44,6 +44,7 @@ public class UseKeybinding implements NativeKeyListener {
 	@Activate
 	public static void activate() {
 		try {
+			System.out.println("Activated Keybind-Component Example!");
 			GlobalScreen.registerNativeHook();
 		} catch (NativeHookException ex) {
 			System.err.println("There was a problem registering the native hook.");
