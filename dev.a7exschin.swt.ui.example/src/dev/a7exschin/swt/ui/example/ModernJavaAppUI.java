@@ -51,15 +51,15 @@ public class ModernJavaAppUI {
         searchBar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
         // Create a CTabFolder to hold the tabs
-        CTabFolder tabFolder = new CTabFolder(shell, SWT.NONE);
+        TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
         tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
         // Create the "Installations" tab
-        CTabItem installationsTab = new CTabItem(tabFolder, SWT.NONE);
+        TabItem installationsTab = new TabItem(tabFolder, SWT.NONE);
         installationsTab.setText("Installations");
 
         // Create the "Workspaces" tab
-        CTabItem workspacesTab = new CTabItem(tabFolder, SWT.NONE);
+        TabItem workspacesTab = new TabItem(tabFolder, SWT.NONE);
         workspacesTab.setText("Workspaces");
 
         installationsWidgets = new HashMap<>();
@@ -75,6 +75,9 @@ public class ModernJavaAppUI {
 
         // Initialize the lists with items
         createLists(tabFolder, installationsTab, workspacesTab);
+        
+        // Set the default selected tab to "Workspaces"
+        tabFolder.setSelection(installationsTab);
 
         shell.open();
         while (!shell.isDisposed()) {
@@ -85,28 +88,28 @@ public class ModernJavaAppUI {
         display.dispose();
     }
 
-    private void createLists(CTabFolder tabFolder, CTabItem installationsTab, CTabItem workspacesTab) {
+    private void createLists(TabFolder tabFolder, TabItem installationsTab, TabItem workspacesTab) {
         // Create a Composite to hold the installations
         Composite installationsComposite = new Composite(tabFolder, SWT.NONE);
         installationsComposite.setLayout(new GridLayout(1, false));
-        installationsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        installationsComposite.setLayoutData(new GridData(GridData.FILL_VERTICAL));
         installationsTab.setControl(installationsComposite);
 
         // Create a List to display the installations
-        installationsList = new List(installationsComposite, SWT.BORDER | SWT.V_SCROLL);
+        installationsList = new List(installationsComposite, SWT.FILL);
         installationsList.setFont(new Font(display, "Roboto", 18, SWT.NORMAL));
-        installationsList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        installationsList.setLayoutData(new GridData(SWT.END, SWT.END, false, false));
 
         // Create a Composite to hold the workspaces
         Composite workspacesComposite = new Composite(tabFolder, SWT.NONE);
         workspacesComposite.setLayout(new GridLayout(1, false));
-        workspacesComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        workspacesComposite.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, true));
         workspacesTab.setControl(workspacesComposite);
 
         // Create a List to display the workspaces
-        workspacesList = new List(workspacesComposite, SWT.BORDER | SWT.V_SCROLL);
+        workspacesList = new List(workspacesComposite, SWT.FILL);
         workspacesList.setFont(new Font(display, "Roboto", 18, SWT.NORMAL));
-        workspacesList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        workspacesList.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, true));
 
         updateLists(); // Initialize the lists with items
     }

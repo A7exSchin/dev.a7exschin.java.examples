@@ -1,0 +1,6 @@
+-buildpath: \
+	dev.a7exschin.osgi.dynamic.service.api,\
+	org.osgi.service.component.annotations,\
+	org.osgi.annotation.versioning,\
+	org.eclipse.osgi
+-sub: *.bnd

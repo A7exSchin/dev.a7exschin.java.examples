@@ -1,0 +1,3 @@
+Automatic-Module-Name: ${project.name}
+Bundle-Version: 1.0.3.SNAPSHOT
+Export-Package: dev.a7exschin.osgi.dynamic.service
