@@ -1,83 +1,62 @@
 package dev.a7exschin.swt.ui.example;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-
 public class ModernJavaAppUI {
-    private Display display;
-    private Shell shell;
-    private LinkedList<String> installations;
-    private LinkedList<String> workspaces;
-    private List installationsList;
-    private List workspacesList;
-    private Text searchBar;
 
-    private HashMap<String, Composite> installationsWidgets;
-    private HashMap<String, Composite> workspacesWidgets;
+    public static void main(String[] args) {
+        Display display = new Display();
+        Shell shell = new Shell(display);
+        shell.setText("Tree List with Buttons");
+        shell.setSize(400, 400);
+        shell.setLayout(new FillLayout());
 
-    public ModernJavaAppUI() {
-        // Create the Display and Shell
-        display = new Display();
-        shell = new Shell(display);
-        shell.setText("Modern Java Application");
-        shell.setSize(600, 400);
-        shell.setLayout(new GridLayout(1, false)); // Single column layout
+        Tree tree = new Tree(shell, SWT.BORDER | SWT.V_SCROLL);
+        tree.setHeaderVisible(true);
 
-        // Initialize the installations and workspaces lists (replace this with your actual data)
-        installations = new LinkedList<>();
-        installations.add("Installation 1");
-        installations.add("Installation 2");
-        installations.add("Installation 3");
+        Font boldFont = new Font(display, "Arial", 12, SWT.BOLD);
 
-        workspaces = new LinkedList<>();
-        workspaces.add("Workspace 1");
-        workspaces.add("Workspace 2");
-        workspaces.add("Workspace 3");
+        // Create columns in the tree
+        TreeColumn column1 = new TreeColumn(tree, SWT.LEFT);
+        column1.setText("Items");
+        column1.setWidth(200);
 
-        // Create the search bar and add it to the shell's top (North) position
-        searchBar = new Text(shell, SWT.SEARCH | SWT.BORDER);
-        searchBar.setFont(new Font(display, "Roboto", 16, SWT.NORMAL));
-        searchBar.setMessage("Search...");
-        searchBar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        TreeColumn column2 = new TreeColumn(tree, SWT.LEFT);
+        column2.setText("Actions");
+        column2.setWidth(150);
 
-        // Create a CTabFolder to hold the tabs
-        TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
-        tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        // Create root item
+        TreeItem rootItem = new TreeItem(tree, SWT.NONE);
+        rootItem.setText("Root Item");
+        rootItem.setFont(boldFont);
 
-        // Create the "Installations" tab
-        TabItem installationsTab = new TabItem(tabFolder, SWT.NONE);
-        installationsTab.setText("Installations");
+        // Create sub-items under the root item
+        TreeItem subItem1 = new TreeItem(rootItem, SWT.NONE);
+        subItem1.setText("Sub Item 1");
+        createButtonComposite(subItem1);
 
-        // Create the "Workspaces" tab
-        TabItem workspacesTab = new TabItem(tabFolder, SWT.NONE);
-        workspacesTab.setText("Workspaces");
+        TreeItem subItem2 = new TreeItem(rootItem, SWT.NONE);
+        subItem2.setText("Sub Item 2");
+        createButtonComposite(subItem2);
 
-        installationsWidgets = new HashMap<>();
-        workspacesWidgets = new HashMap<>();
+        // Create another root item
+        TreeItem rootItem2 = new TreeItem(tree, SWT.NONE);
+        rootItem2.setText("Another Root Item");
+        rootItem2.setFont(boldFont);
 
-        // Add ModifyListener to the search bar (called whenever the text changes)
-        searchBar.addModifyListener(new ModifyListener() {
-            @Override
-            public void modifyText(ModifyEvent e) {
-                filterLists();
-            }
-        });
+        // Create sub-items under the second root item
+        TreeItem subItem3 = new TreeItem(rootItem2, SWT.NONE);
+        subItem3.setText("Sub Item 3");
+        createButtonComposite(subItem3);
 
-        // Initialize the lists with items
-        createLists(tabFolder, installationsTab, workspacesTab);
-        
-        // Set the default selected tab to "Workspaces"
-        tabFolder.setSelection(installationsTab);
+        TreeItem subItem4 = new TreeItem(rootItem2, SWT.NONE);
+        subItem4.setText("Sub Item 4");
+        createButtonComposite(subItem4);
 
         shell.open();
         while (!shell.isDisposed()) {
@@ -88,117 +67,24 @@ public class ModernJavaAppUI {
         display.dispose();
     }
 
-    private void createLists(TabFolder tabFolder, TabItem installationsTab, TabItem workspacesTab) {
-        // Create a Composite to hold the installations
-        Composite installationsComposite = new Composite(tabFolder, SWT.NONE);
-        installationsComposite.setLayout(new GridLayout(1, false));
-        installationsComposite.setLayoutData(new GridData(GridData.FILL_VERTICAL));
-        installationsTab.setControl(installationsComposite);
+    // Helper method to create a button composite for each tree item
+    private static void createButtonComposite(TreeItem treeItem) {
+        Composite buttonComposite = new Composite(treeItem.getParent(), SWT.NONE);
+        GridLayout layout = new GridLayout(1, false);
+        layout.marginWidth = layout.marginHeight = 0;
+        buttonComposite.setLayout(layout);
 
-        // Create a List to display the installations
-        installationsList = new List(installationsComposite, SWT.FILL);
-        installationsList.setFont(new Font(display, "Roboto", 18, SWT.NORMAL));
-        installationsList.setLayoutData(new GridData(SWT.END, SWT.END, false, false));
+        Button button = new Button(buttonComposite, SWT.PUSH);
+        button.setText("Action");
+        button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false));
+        button.addListener(SWT.Selection, e -> {
+            // Action to be performed when the button is clicked
+            System.out.println("Button clicked for item: " + treeItem.getText());
+        });
 
-        // Create a Composite to hold the workspaces
-        Composite workspacesComposite = new Composite(tabFolder, SWT.NONE);
-        workspacesComposite.setLayout(new GridLayout(1, false));
-        workspacesComposite.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, true));
-        workspacesTab.setControl(workspacesComposite);
-
-        // Create a List to display the workspaces
-        workspacesList = new List(workspacesComposite, SWT.FILL);
-        workspacesList.setFont(new Font(display, "Roboto", 18, SWT.NORMAL));
-        workspacesList.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, true));
-
-        updateLists(); // Initialize the lists with items
-    }
-
-    private void updateLists() {
-        updateList(installations, installationsWidgets, installationsList);
-        updateList(workspaces, workspacesWidgets, workspacesList);
-    }
-
-    private void updateList(LinkedList<String> itemList, HashMap<String, Composite> widgetMap, List listWidget) {
-        for (String item : itemList) {
-            if (widgetMap.containsKey(item)) {
-                widgetMap.get(item).dispose(); // Dispose the existing widget if it exists
-            }
-
-            // Create a custom composite for each list item
-            Composite listItemComposite = new Composite(listWidget.getParent(), SWT.NONE);
-            listItemComposite.setLayout(new GridLayout(2, false));
-            listItemComposite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-            // Create a label to display the item text
-            Label itemLabel = new Label(listItemComposite, SWT.NONE);
-            itemLabel.setText(item);
-            itemLabel.setFont(new Font(display, "Roboto", 18, SWT.NORMAL));
-            itemLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-            // Create a delete button
-            Button deleteButton = new Button(listItemComposite, SWT.PUSH);
-            deleteButton.setText("Delete");
-            deleteButton.setFont(new Font(display, "Roboto", 12, SWT.NORMAL));
-            deleteButton.setLayoutData(new GridData(SWT.END, SWT.CENTER, false, false));
-            deleteButton.addListener(SWT.Selection, e -> {
-                itemList.remove(item);
-                updateLists(); // Update the lists after deletion
-            });
-
-            widgetMap.put(item, listItemComposite);
-        }
-    }
-
-    private void filterLists() {
-        String searchQuery = searchBar.getText().toLowerCase();
-        filterList(installations, installationsWidgets, installationsList, searchQuery.isEmpty() ? null : searchQuery);
-        filterList(workspaces, workspacesWidgets, workspacesList, searchQuery.isEmpty() ? null : searchQuery);
-    }
-
-    private void filterList(LinkedList<String> originalList, HashMap<String, Composite> widgetMap, List listWidget, String searchQuery) {
-        LinkedList<String> filteredItems = new LinkedList<>();
-        if (searchQuery == null) {
-            filteredItems.addAll(originalList); // Show all items
-        } else {
-            for (String item : originalList) {
-                if (item.toLowerCase().contains(searchQuery)) {
-                    filteredItems.add(item);
-                }
-            }
-        }
-
-        // Dispose all widgets in the list
-        for (Composite composite : widgetMap.values()) {
-            composite.dispose();
-        }
-
-        for (String item : filteredItems) {
-            // Create a custom composite for each filtered list item
-            Composite listItemComposite = new Composite(listWidget.getParent(), SWT.NONE);
-            Label itemLabel = new Label(listItemComposite, SWT.NONE);
-            itemLabel.setText(item);
-            itemLabel.setFont(new Font(display, "Roboto", 18, SWT.NORMAL));
-            itemLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-            // Create a delete button
-            Button deleteButton = new Button(listItemComposite, SWT.PUSH);
-            deleteButton.setText("Delete");
-            deleteButton.setFont(new Font(display, "Roboto", 12, SWT.NORMAL));
-            deleteButton.setLayoutData(new GridData(SWT.END, SWT.CENTER, false, false));
-            deleteButton.addListener(SWT.Selection, e -> {
-                originalList.remove(item);
-                updateLists(); // Update the lists after deletion
-            });
-
-            widgetMap.put(item, listItemComposite);
-        }
-
-        listWidget.getParent().layout(true, true); // Trigger re-layout of the parent composite
-    }
-
-    public static void main(String[] args) {
-        new ModernJavaAppUI();
+        treeItem.setData(buttonComposite);
     }
 }
+
+
 
