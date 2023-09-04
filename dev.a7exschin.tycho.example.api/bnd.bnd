@@ -1,0 +1,2 @@
+-buildpath: org.osgi.annotation.versioning
+Export-Package: dev.a7exschin.tycho.example.api

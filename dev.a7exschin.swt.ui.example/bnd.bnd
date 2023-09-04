@@ -1,1 +1,4 @@
--buildpath: org.eclipse.swt.win32.win32.x86_64
+-buildpath: \
+	org.eclipse.swt.win32.win32.x86_64,\
+	org.eclipse.jface,\
+	org.eclipse.equinox.common

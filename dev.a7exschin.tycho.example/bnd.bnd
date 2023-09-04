@@ -1,0 +1,8 @@
+-buildpath: \
+	dev.a7exschin.tycho.example.api,\
+	org.osgi.service.component.annotations,\
+	org.osgi.annotation.versioning
+-sub: *.bnd
+Export-Package: \
+	command,\
+	impl

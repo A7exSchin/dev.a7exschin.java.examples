@@ -7,12 +7,6 @@ Bundle-Developers: \
         name="Alexander Schindler";\
         roles="architect,developer"
 
-# JUnit
-junit: \
-  junit-jupiter,\
-  junit-jupiter-api
-mockito: org.mockito.mockito-all
-
 # separate build folders for windows executions - file handle issues
 target-dir  generated${if;${driver;eclipse};;/${driver}}
 bin         ${target-dir}/classes

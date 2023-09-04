@@ -12,6 +12,8 @@
     launch.keep=false,\
     osgi.console=
 
+-standalone: true
+
 -runbundles: \
 	dev.a7exschin.osgi.dynamic.service.api;version=snapshot,\
 	org.apache.felix.gogo.command;version='[1.1.2,1.1.3)',\

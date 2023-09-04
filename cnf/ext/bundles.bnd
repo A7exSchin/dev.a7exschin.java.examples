@@ -14,10 +14,16 @@ debug.console:\
     bnd.identity;version='1.0.0';id='org.apache.felix.gogo.shell'
 
 debug.webconsole:\
-    bnd.identity;version='1.0.1';id='org.apache.aries.jax.rs.whiteboard',\
-    bnd.identity;version='4.3.4';id='org.apache.felix.webconsole',\
-    bnd.identity;version='2.0.8';id='org.apache.felix.webconsole.plugins.ds',\
-    bnd.identity;version='1.0.10';id='org.apache.felix.webconsole.plugins.memoryusage',\
-    bnd.identity;version='1.0.4';id='org.apache.felix.webconsole.plugins.packageadmin',\
-
+    bnd.identity;id='org.apache.aries.jax.rs.whiteboard',\
+    bnd.identity;id='org.apache.felix.webconsole',\
+    bnd.identity;id='org.apache.felix.webconsole.plugins.ds',\
+    bnd.identity;id='org.apache.felix.webconsole.plugins.memoryusage',\
+    bnd.identity;id='org.apache.felix.webconsole.plugins.packageadmin',\
+    
+# JUnit
+junit: org.apache.servicemix.bundles.junit; version=4.12
+mockito: org.mockito.mockito-core; version=2.13.0
+mockito-deps: org.objenesis; version=2.6.0,\
+  net.bytebuddy.byte-buddy; version=1.7.9,\
+  net.bytebuddy.byte-buddy-agent; version=1.7.9 
     
